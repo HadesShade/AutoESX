@@ -59,6 +59,7 @@ class AutoESX:
 
     def run_jobs(self):
         for job in self.jobs:
+            print(f"*************** Running job: {job['description']} ***************")
             task_type = job["task"]["type"]
             target_hosts = job.get("hosts", [])
             if "groups" in job:
