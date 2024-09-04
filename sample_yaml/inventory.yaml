@@ -1,0 +1,15 @@
+hosts:
+- name: my_esxi
+  type: esxi7
+  serverData:
+    address: '192.168.1.60'
+    username: root
+    password: 'Passw0rd$'
+    httpsPort: 443
+    SSLVerify: false
+    acceptAllEulas: true
+
+groups:
+- name: my_group
+  hosts:
+  - my_esxi

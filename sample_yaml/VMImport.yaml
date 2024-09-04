@@ -1,0 +1,12 @@
+- description: "Import testvm"
+  hosts:
+  - my_esxi
+  task:
+    type: VMImport
+    virtualMachines:
+    - name: testvm
+      datastore: datastore1
+      source: '/home/hades/testvm.ova'
+      networks:
+      - 'VM Network': 'VM Network'
+

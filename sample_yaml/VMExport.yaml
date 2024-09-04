@@ -1,0 +1,9 @@
+- description: "Export testvm"
+  hosts:
+  - my_esxi
+  task:
+    type: VMExport
+    virtualMachines:
+    - name: testvm
+      destination: '/home/hades/testvm.ova'
+
