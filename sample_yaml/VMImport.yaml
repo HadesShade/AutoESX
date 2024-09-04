@@ -1,6 +1,6 @@
 - description: "Import testvm"
-  hosts:
-  - my_esxi
+  groups:
+  - my_group
   task:
     type: VMImport
     virtualMachines:

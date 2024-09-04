@@ -5,5 +5,5 @@
     type: VMExport
     virtualMachines:
     - name: testvm
-      destination: '/home/hades/testvm.ova'
+      destination: '/home/hades/export-testvm.ova'
 
