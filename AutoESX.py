@@ -61,10 +61,10 @@ class AutoESX:
         for job in self.jobs:
             task_type = job["task"]["type"]
             target_hosts = job.get("hosts", [])
-
             if "groups" in job:
                 for group in job["groups"]:
-                    target_hosts.extend(self.groups[group].hosts)
+                    target_group = next(g[group] for g in self.groups if group in g)
+                    target_hosts.extend(target_group.hosts)
 
             for host in target_hosts:
                 host_object = next(h[host] for h in self.hosts if host in h)
