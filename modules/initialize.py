@@ -8,5 +8,6 @@ class Initialize:
     
     def check_ovftool(self):
         if shutil.which("ovftool") is None:
-            print ("WARNING: OVFTool is not installed. Functionality may be limited.")
+            print ("WARNING: OVFTool is not installed. VM Import and Export will not work.")
+            print ("You can download OVFTool from https://developer.broadcom.com/tools/open-virtualization-format-ovf-tool/latest")
         

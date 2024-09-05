@@ -7,6 +7,11 @@
     - name: testvm
       datastore: datastore1
       source: '/home/hades/testvm.ova'
+      memorySize: 4096
+      cpuNumber: 2
+      diskSizes:
+      - diskInstanceId: 10
+        size: 10240
       networks:
       - 'VM Network': 'VM Network'
 

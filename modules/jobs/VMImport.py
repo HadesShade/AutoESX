@@ -6,11 +6,19 @@ class VMImport:
         self.vmList = vmList
         self.importString = list()
         for vm in vmList:
-            netString = list()
-            for net in vm['networks']:
-                for k,v in net.items():
-                    netString.append(f"--net:'{k}'='{v}'")
-            vmOption = f"{host_connection_dictionary['hostOptions']} --name={vm['name']} --datastore={vm['datastore']} {' '.join(netString)} {vm['source']} {host_connection_dictionary['hostURL']}"
+            netString = [f"--net:'{k}'='{v}'" for net in vm.get('networks', []) for k, v in net.items()]
+
+            peripheralString = [
+                f"--memorySize:*={vm['memorySize']}" if 'memorySize' in vm else '',
+                f"--numberOfCpus:*={vm['cpuNumber']}" if 'cpuNumber' in vm else ''
+            ] + [f"--diskSize:*,{disk['diskInstanceId']}={disk['size']}" for disk in vm.get('diskSizes', [])]
+
+            vmOption = (
+                f"{host_connection_dictionary['hostOptions']} --name={vm['name']} "
+                f"--datastore={vm['datastore']} {' '.join(filter(None, netString))} "
+                f"{' '.join(filter(None, peripheralString))} {vm['source']} {host_connection_dictionary['hostURL']}"
+            )
+
             self.importString.append(vmOption)
     
         
