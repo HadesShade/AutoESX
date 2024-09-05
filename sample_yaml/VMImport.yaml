@@ -1,4 +1,5 @@
 - description: "Import testvm"
+  quiet: true
   groups:
   - my_group
   task:
@@ -14,4 +15,6 @@
         size: 10240
       networks:
       - 'VM Network': 'VM Network'
-
+      overwrite: true
+      powerOn: true
+      powerOffTarget: true

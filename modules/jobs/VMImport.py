@@ -1,8 +1,9 @@
 import os
 
 class VMImport:
-    def __init__ (self,vmList, host_connection_dictionary):
+    def __init__ (self,vmList, host_connection_dictionary, jobBinaryOpts):
         self.host_name = host_connection_dictionary['hostName']
+        self.jobBinaryOpts = jobBinaryOpts
         self.vmList = vmList
         self.importString = list()
         for vm in vmList:
@@ -13,9 +14,17 @@ class VMImport:
                 f"--numberOfCpus:*={vm['cpuNumber']}" if 'cpuNumber' in vm else ''
             ] + [f"--diskSize:*,{disk['diskInstanceId']}={disk['size']}" for disk in vm.get('diskSizes', [])]
 
+            binaryOptsString = [
+                "--quiet" if self.jobBinaryOpts['quiet'] == True else '',
+                "--overwrite" if ('overwrite' in vm and vm['overwrite'] == True) else '',
+                "--powerOn" if ('powerOn' in vm and vm['powerOn'] == True) else '',
+                "--powerOffSource" if('powerOffSource' in vm and vm['powerOffSource'] == True) else '',
+                "--powerOffTarget" if('powerOffTarget' in vm and vm['powerOffTarget'] == True) else ''
+            ]
+
             vmOption = (
                 f"{host_connection_dictionary['hostOptions']} --name={vm['name']} "
-                f"--datastore={vm['datastore']} {' '.join(filter(None, netString))} "
+                f"--datastore={vm['datastore']} {' '.join(filter(None, netString))} {' '.join(filter(None, binaryOptsString))} "
                 f"{' '.join(filter(None, peripheralString))} {vm['source']} {host_connection_dictionary['hostURL']}"
             )
 

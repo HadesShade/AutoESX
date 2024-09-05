@@ -45,7 +45,10 @@ class AutoESX:
         for job in jobs_data:
             job_dict = {
                 "description": job["description"],
-                "task": job["task"]
+                "task": job["task"],
+                "binaryOpts": {
+                    "quiet": job["quiet"] if 'quiet' in job else True
+                }
             }
             if "hosts" in job:
                 job_dict["hosts"] = job["hosts"]
@@ -70,10 +73,10 @@ class AutoESX:
             for host in target_hosts:
                 host_object = next(h[host] for h in self.hosts if host in h)
                 if task_type == "VMImport":
-                    vm_import = VMImport(job["task"]["virtualMachines"], host_object.connection_dictionary())
+                    vm_import = VMImport(job["task"]["virtualMachines"], host_object.connection_dictionary(), job['binaryOpts'])
                     vm_import.import_vms()
                 elif task_type == "VMExport":
-                    vm_export = VMExport(job["task"]["virtualMachines"], host_object.connection_dictionary())
+                    vm_export = VMExport(job["task"]["virtualMachines"], host_object.connection_dictionary(), job['binaryOpts'])
                     vm_export.export_vms()
                 else:
                     print("Unknown task type!")
