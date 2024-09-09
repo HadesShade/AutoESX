@@ -1,0 +1,9 @@
+- description: "Add vSwitch to ESXi"
+  quiet: false
+  hosts:
+  - my_esxi
+  task:
+    type: VSAdd
+    vSwitches:
+    - name: testvs
+      portNumber: 128

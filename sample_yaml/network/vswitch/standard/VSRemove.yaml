@@ -1,0 +1,8 @@
+- description: "Remove vSwitch from ESXi"
+  quiet: false
+  hosts:
+  - my_esxi
+  task:
+    type: VSRemove
+    vSwitches:
+    - name: testvs

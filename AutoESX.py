@@ -3,9 +3,13 @@ import argparse
 import sys
 from modules.host import Host
 from modules.group import Group
-from modules.jobs.VMImport import VMImport
-from modules.jobs.VMExport import VMExport
+from modules.jobs.VM.VMImport import VMImport
+from modules.jobs.VM.VMExport import VMExport
 from modules.initialize import Initialize
+from modules.jobs.network.vswitch.standard.VSAdd import VSAdd
+from modules.jobs.network.vswitch.standard.VSRemove import VSRemove
+from modules.jobs.network.vswitch.standard.VSSet import VSSet
+from modules.jobs.network.vswitch.standard.VSList import VSList
 
 class AutoESX:
     def __init__(self, inventoryData, jobData):
@@ -29,7 +33,7 @@ class AutoESX:
                 password=host['serverData']['password'],
                 httpsPort=host['serverData']['httpsPort'],
                 SSLVerify=host['serverData'].get('SSLVerify', True),
-                acceptAllEulas=host['serverData'].get('acceptAllEulas', False)
+                acceptAllEulas=host['serverData'].get('acceptAllEulas', False),
             )}
             for host in hosts_data
         ]
@@ -78,6 +82,26 @@ class AutoESX:
                 elif task_type == "VMExport":
                     vm_export = VMExport(job["task"]["virtualMachines"], host_object.connection_dictionary(), job['binaryOpts'])
                     vm_export.export_vms()
+                elif task_type == "VSAdd":
+                    vs_add = VSAdd(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet'])
+                    for command in vs_add.exec_commands():
+                        print(host_object.ssh.ssh_command_execution(command))
+                    host_object.ssh.ssh.close()
+                elif task_type == "VSRemove":
+                    vs_remove = VSRemove(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet'])
+                    for command in vs_remove.exec_commands():
+                        print(host_object.ssh.ssh_command_execution(command))
+                    host_object.ssh.ssh.close()
+                elif task_type == "VSSet":
+                    vs_set = VSSet(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet'])
+                    for command in vs_set.exec_commands():
+                        print(host_object.ssh.ssh_command_execution(command))
+                    host_object.ssh.ssh.close()
+                elif task_type == "VSList":
+                    vs_list = VSList(vswitches_list=job["task"]["vSwitches"] if "vSwitches" in job["task"] else [], quiet=job['binaryOpts']['quiet'])
+                    for command in vs_list.exec_commands():
+                        print(host_object.ssh.ssh_command_execution(command))
+                    host_object.ssh.ssh.close()
                 else:
                     print("Unknown task type!")
                     sys.exit(0)
@@ -94,6 +118,6 @@ if __name__ == "__main__":
             job = yaml.safe_load(job_yaml)
             autoesx = AutoESX(inventory, job)
             autoesx.run_jobs()
-    except:
+    except Exception:
         print("An error occurred! Exiting...")
         sys.exit(0)

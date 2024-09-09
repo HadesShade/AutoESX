@@ -1,0 +1,10 @@
+- description: "Set 'testvs' vSwitch mtu and CDP status on ESXi"
+  quiet: false
+  hosts:
+  - my_esxi
+  task:
+    type: VSSet
+    vSwitches:
+    - name: testvs
+      mtu: 1496
+      cdpStatus: both

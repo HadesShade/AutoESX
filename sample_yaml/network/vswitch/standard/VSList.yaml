@@ -1,0 +1,6 @@
+- description: "List all vSwitches"
+  quiet: true
+  groups:
+  - my_group
+  task:
+    type: VSList
