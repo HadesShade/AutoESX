@@ -1,0 +1,9 @@
+- description: "Remove Uplink from vSwitch"
+  quiet: true
+  groups:
+  - my_group
+  task:
+    type: VSUplinkRemove
+    VSUplinks:
+    - name: testuplink
+      VSName: testvs

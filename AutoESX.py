@@ -10,6 +10,9 @@ from modules.jobs.network.vswitch.standard.VSAdd import VSAdd
 from modules.jobs.network.vswitch.standard.VSRemove import VSRemove
 from modules.jobs.network.vswitch.standard.VSSet import VSSet
 from modules.jobs.network.vswitch.standard.VSList import VSList
+from modules.jobs.network.vswitch.standard.uplink.VSUplinkAdd import VSUplinkAdd
+from modules.jobs.network.vswitch.standard.uplink.VSUplinkRemove import VSUplinkRemove
+
 
 class AutoESX:
     def __init__(self, inventoryData, jobData):
@@ -63,8 +66,24 @@ class AutoESX:
                 sys.exit(0)
             jobs.append(job_dict)
         return jobs
+    
+    def _exec_commands(self, task_instance, host_object):
+            for command in task_instance.exec_commands():
+                print(host_object.ssh.ssh_command_execution(command))
+            host_object.ssh.ssh.close()
 
     def run_jobs(self):
+        task_handlers = {
+            "VMImport": lambda job, host_object: VMImport(job["task"]["virtualMachines"], host_object.connection_dictionary(), job['binaryOpts']).import_vms(),
+            "VMExport": lambda job, host_object: VMExport(job["task"]["virtualMachines"], host_object.connection_dictionary(), job['binaryOpts']).export_vms(),
+            "VSAdd": lambda job, host_object: self._exec_commands(VSAdd(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSRemove": lambda job, host_object: self._exec_commands(VSRemove(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSSet": lambda job, host_object: self._exec_commands(VSSet(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSList": lambda job, host_object: self._exec_commands(VSList(vswitches_list=job["task"].get("vSwitches", []), quiet=job['binaryOpts']['quiet']), host_object),
+            "VSUplinkAdd": lambda job, host_object: self._exec_commands(VSUplinkAdd(job["task"]["VSUplinks"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSUplinkRemove": lambda job, host_object: self._exec_commands(VSUplinkRemove(job["task"]["VSUplinks"], quiet=job['binaryOpts']['quiet']), host_object),
+        }
+
         for job in self.jobs:
             print(f"*************** Running job: {job['description']} ***************")
             task_type = job["task"]["type"]
@@ -76,32 +95,9 @@ class AutoESX:
 
             for host in target_hosts:
                 host_object = next(h[host] for h in self.hosts if host in h)
-                if task_type == "VMImport":
-                    vm_import = VMImport(job["task"]["virtualMachines"], host_object.connection_dictionary(), job['binaryOpts'])
-                    vm_import.import_vms()
-                elif task_type == "VMExport":
-                    vm_export = VMExport(job["task"]["virtualMachines"], host_object.connection_dictionary(), job['binaryOpts'])
-                    vm_export.export_vms()
-                elif task_type == "VSAdd":
-                    vs_add = VSAdd(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet'])
-                    for command in vs_add.exec_commands():
-                        print(host_object.ssh.ssh_command_execution(command))
-                    host_object.ssh.ssh.close()
-                elif task_type == "VSRemove":
-                    vs_remove = VSRemove(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet'])
-                    for command in vs_remove.exec_commands():
-                        print(host_object.ssh.ssh_command_execution(command))
-                    host_object.ssh.ssh.close()
-                elif task_type == "VSSet":
-                    vs_set = VSSet(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet'])
-                    for command in vs_set.exec_commands():
-                        print(host_object.ssh.ssh_command_execution(command))
-                    host_object.ssh.ssh.close()
-                elif task_type == "VSList":
-                    vs_list = VSList(vswitches_list=job["task"]["vSwitches"] if "vSwitches" in job["task"] else [], quiet=job['binaryOpts']['quiet'])
-                    for command in vs_list.exec_commands():
-                        print(host_object.ssh.ssh_command_execution(command))
-                    host_object.ssh.ssh.close()
+                handler = task_handlers.get(task_type)
+                if handler:
+                    handler(job, host_object)
                 else:
                     print("Unknown task type!")
                     sys.exit(0)
@@ -118,6 +114,7 @@ if __name__ == "__main__":
             job = yaml.safe_load(job_yaml)
             autoesx = AutoESX(inventory, job)
             autoesx.run_jobs()
-    except Exception:
-        print("An error occurred! Exiting...")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        print("Exiting...")
         sys.exit(0)

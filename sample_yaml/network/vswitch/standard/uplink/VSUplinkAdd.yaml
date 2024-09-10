@@ -1,0 +1,9 @@
+- description: "Add Uplink to vSwitch"
+  quiet: true
+  hosts:
+  - my_esxi
+  task:
+    type: VSUplinkAdd
+    VSUplinks:
+    - name: testuplink
+      VSName: testvs
