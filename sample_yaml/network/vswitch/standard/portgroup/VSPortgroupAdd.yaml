@@ -1,0 +1,9 @@
+- description: "Add Portgroup to vSwitch"
+  quiet: true
+  groups:
+  - my_group
+  task:
+    type: VSPortgroupAdd
+    vsPortgroups:
+    - name: testpg
+      vsName: testvs

@@ -4,6 +4,6 @@
   - my_esxi
   task:
     type: VSUplinkAdd
-    VSUplinks:
+    vsUplinks:
     - name: testuplink
-      VSName: testvs
+      vsName: testvs

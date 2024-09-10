@@ -1,0 +1,9 @@
+- description: "Remove Portgroup from vSwitch"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VSPortgroupRemove
+    vsPortgroups:
+    - name: testpg
+      vsName: testvs

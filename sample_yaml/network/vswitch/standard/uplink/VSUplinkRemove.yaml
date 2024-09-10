@@ -4,6 +4,6 @@
   - my_group
   task:
     type: VSUplinkRemove
-    VSUplinks:
+    vsUplinks:
     - name: testuplink
-      VSName: testvs
+      vsName: testvs

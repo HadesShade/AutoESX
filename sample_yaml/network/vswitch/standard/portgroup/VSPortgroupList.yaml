@@ -1,0 +1,6 @@
+- description: "List Portgroups in vSwitch"
+  quiet: false
+  hosts:
+  - my_esxi
+  task:
+    type: VSPortgroupList

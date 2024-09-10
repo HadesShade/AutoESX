@@ -12,7 +12,10 @@ from modules.jobs.network.vswitch.standard.VSSet import VSSet
 from modules.jobs.network.vswitch.standard.VSList import VSList
 from modules.jobs.network.vswitch.standard.uplink.VSUplinkAdd import VSUplinkAdd
 from modules.jobs.network.vswitch.standard.uplink.VSUplinkRemove import VSUplinkRemove
-
+from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupAdd import VSPortgroupAdd
+from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupRemove import VSPortgroupRemove
+from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupList import VSPortgroupList
+from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupSet import VSPortgroupSet
 
 class AutoESX:
     def __init__(self, inventoryData, jobData):
@@ -80,8 +83,12 @@ class AutoESX:
             "VSRemove": lambda job, host_object: self._exec_commands(VSRemove(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet']), host_object),
             "VSSet": lambda job, host_object: self._exec_commands(VSSet(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet']), host_object),
             "VSList": lambda job, host_object: self._exec_commands(VSList(vswitches_list=job["task"].get("vSwitches", []), quiet=job['binaryOpts']['quiet']), host_object),
-            "VSUplinkAdd": lambda job, host_object: self._exec_commands(VSUplinkAdd(job["task"]["VSUplinks"], quiet=job['binaryOpts']['quiet']), host_object),
-            "VSUplinkRemove": lambda job, host_object: self._exec_commands(VSUplinkRemove(job["task"]["VSUplinks"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSUplinkAdd": lambda job, host_object: self._exec_commands(VSUplinkAdd(job["task"]["vsUplinks"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSUplinkRemove": lambda job, host_object: self._exec_commands(VSUplinkRemove(job["task"]["vsUplinks"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupAdd": lambda job, host_object: self._exec_commands(VSPortgroupAdd(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupRemove": lambda job, host_object: self._exec_commands(VSPortgroupRemove(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupList": lambda job, host_object: self._exec_commands(VSPortgroupList(quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupSet": lambda job, host_object: self._exec_commands(VSPortgroupSet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object)
         }
 
         for job in self.jobs:

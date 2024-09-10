@@ -1,0 +1,9 @@
+- description: "Set Portgroup VLAN ID in vSwitch"
+  quiet: true
+  hosts:
+  - my_esxi
+  task:
+    type: VSPortgroupSet
+    vsPortgroups:
+    - name: testpg
+      vlanId: 10

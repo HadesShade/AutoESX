@@ -20,32 +20,25 @@ class SSH:
 
     def ssh_command_execution(self,command):
         try:
-            stdin,stdout, stderr = self.ssh.exec_command(command)
+            stdin, stdout, stderr = self.ssh.exec_command(command)
             
             output = ""
-            error = ""
 
-            while not (stdout.channel.exit_status_ready() and stderr.channel.exit_status_ready()):
+            while not (stdout.channel.exit_status_ready()):
                 if stdout.channel.recv_ready():
                     output += stdout.channel.recv(4096).decode()
-                
-                if stderr.channel.recv_ready():
-                    error += stderr.channel.recv(4096).decode()
                 
                 time.sleep(0.1)
             
             if stdout.channel.recv_ready():
                 output += stdout.channel.recv(4096).decode()
-                
-            if stderr.channel.recv_ready():
-                error += stderr.channel.recv(4096).decode()
-            
+
             exit_status = stdout.channel.recv_exit_status()
 
-            if exit_status == 0:
+            if exit_status!= 0:
                 return output
             else:
-                return error 
+                return "Execution successful"
 
         except Exception as e:
             return f'Command execution failed: {e}' 
