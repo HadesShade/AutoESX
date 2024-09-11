@@ -7,9 +7,9 @@ class VSPortgroupPolicyShapingSet:
                 f"--portgroup-name={vspgps['portgroupName']}",
                 f"--enabled={vspgps['enabled']}" if 'enabled' in vspgps else None,
                 f"--use-vswitch" if 'useVswitch' in vspgps and vspgps['useVswitch'] == True else None,
-                f"--avg-bandwidth={vspgps['avgBandwidth']}",
-                f"--peak-bandwidth={vspgps['peakBandwidth']}",
-                f"--burst-size={vspgps['burstSize']}"
+                f"--avg-bandwidth={vspgps['avgBandwidth']}" if 'avgBandwidth' in vspgps else None,
+                f"--peak-bandwidth={vspgps['peakBandwidth']}"if 'peakBandwidth' in vspgps else None,
+                f"--burst-size={vspgps['burstSize']}" if 'burstSize' in vspgps else None,
             ]
             vsportgrouppolicyshaping_options = [opt for opt in vsportgrouppolicyshaping_options if opt is not None]
             self.vsportgrouppolicyshapingset_commands.append(f"esxcli {self.quiet_command} network vswitch standard portgroup policy shaping set {' '.join(vsportgrouppolicyshaping_options)}")

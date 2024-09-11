@@ -18,6 +18,8 @@ from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupList import VSPo
 from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupSet import VSPortgroupSet
 from modules.jobs.network.vswitch.standard.portgroup.policy.shaping.VSPortgroupPolicyShapingGet import VSPortgroupPolicyShapingGet
 from modules.jobs.network.vswitch.standard.portgroup.policy.shaping.VSPortgroupPolicyShapingSet import VSPortgroupPolicyShapingSet
+from modules.jobs.network.vswitch.standard.portgroup.policy.security.VSPortgroupPolicySecurityGet import VSPortgroupPolicySecurityGet
+from modules.jobs.network.vswitch.standard.portgroup.policy.security.VSPortgroupPolicySecuritySet import VSPortgroupPolicySecuritySet
 
 
 class AutoESX:
@@ -93,7 +95,9 @@ class AutoESX:
             "VSPortgroupList": lambda job, host_object: self._exec_commands(VSPortgroupList(quiet=job['binaryOpts']['quiet']), host_object),
             "VSPortgroupSet": lambda job, host_object: self._exec_commands(VSPortgroupSet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
             "VSPortgroupPolicyShapingGet": lambda job, host_object: self._exec_commands(VSPortgroupPolicyShapingGet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
-            "VSPortgroupPolicyShapingSet": lambda job, host_object: self._exec_commands(VSPortgroupPolicyShapingSet(job["task"]["vsPortgroupPolicyShapings"], quiet=job['binaryOpts']['quiet']), host_object)
+            "VSPortgroupPolicyShapingSet": lambda job, host_object: self._exec_commands(VSPortgroupPolicyShapingSet(job["task"]["vsPortgroupPolicyShapings"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupPolicySecurityGet": lambda job, host_object: self._exec_commands(VSPortgroupPolicySecurityGet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupPolicySecuritySet": lambda job, host_object: self._exec_commands(VSPortgroupPolicySecuritySet(job["task"]["vsPortgroupPolicySecurities"], quiet=job['binaryOpts']['quiet']), host_object)
         }
 
         for job in self.jobs:

@@ -1,0 +1,12 @@
+- description: "Set Policy Shaping of a Portgroup"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VSPortgroupPolicySecuritySet
+    vsPortgroupPolicySecurities:
+    - portgroupName: testpg
+      allowForgedTransmits: true
+      allowMacChange: true
+      allowPromiscuous: false
+      burstSize: 10000
