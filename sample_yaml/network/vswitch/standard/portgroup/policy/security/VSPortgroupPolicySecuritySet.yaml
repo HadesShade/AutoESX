@@ -9,4 +9,3 @@
       allowForgedTransmits: true
       allowMacChange: true
       allowPromiscuous: false
-      burstSize: 10000

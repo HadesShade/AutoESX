@@ -5,5 +5,5 @@
   task:
     type: VSUplinkAdd
     vsUplinks:
-    - name: testuplink
+    - name: vmnic0
       vswitchName: testvs

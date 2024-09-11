@@ -20,6 +20,8 @@ from modules.jobs.network.vswitch.standard.portgroup.policy.shaping.VSPortgroupP
 from modules.jobs.network.vswitch.standard.portgroup.policy.shaping.VSPortgroupPolicyShapingSet import VSPortgroupPolicyShapingSet
 from modules.jobs.network.vswitch.standard.portgroup.policy.security.VSPortgroupPolicySecurityGet import VSPortgroupPolicySecurityGet
 from modules.jobs.network.vswitch.standard.portgroup.policy.security.VSPortgroupPolicySecuritySet import VSPortgroupPolicySecuritySet
+from modules.jobs.network.vswitch.standard.portgroup.policy.failover.VSPortgroupPolicyFailoverGet import VSPortgroupPolicyFailoverGet
+from modules.jobs.network.vswitch.standard.portgroup.policy.failover.VSPortgroupPolicyFailoverSet import VSPortgroupPolicyFailoverSet
 
 
 class AutoESX:
@@ -97,7 +99,9 @@ class AutoESX:
             "VSPortgroupPolicyShapingGet": lambda job, host_object: self._exec_commands(VSPortgroupPolicyShapingGet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
             "VSPortgroupPolicyShapingSet": lambda job, host_object: self._exec_commands(VSPortgroupPolicyShapingSet(job["task"]["vsPortgroupPolicyShapings"], quiet=job['binaryOpts']['quiet']), host_object),
             "VSPortgroupPolicySecurityGet": lambda job, host_object: self._exec_commands(VSPortgroupPolicySecurityGet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
-            "VSPortgroupPolicySecuritySet": lambda job, host_object: self._exec_commands(VSPortgroupPolicySecuritySet(job["task"]["vsPortgroupPolicySecurities"], quiet=job['binaryOpts']['quiet']), host_object)
+            "VSPortgroupPolicySecuritySet": lambda job, host_object: self._exec_commands(VSPortgroupPolicySecuritySet(job["task"]["vsPortgroupPolicySecurities"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupPolicyFailoverGet": lambda job, host_object: self._exec_commands(VSPortgroupPolicyFailoverGet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupPolicyFailoverSet": lambda job, host_object: self._exec_commands(VSPortgroupPolicyFailoverSet(job["task"]["vsPortgroupPolicyFailovers"], quiet=job['binaryOpts']['quiet']), host_object)
         }
 
         for job in self.jobs:

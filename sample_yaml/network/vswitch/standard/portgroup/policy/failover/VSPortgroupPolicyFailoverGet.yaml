@@ -1,0 +1,8 @@
+- description: "Get Policy Failover of a Portgroup"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VSPortgroupPolicyFailoverGet
+    vsPortgroups:
+    - name: testpg
