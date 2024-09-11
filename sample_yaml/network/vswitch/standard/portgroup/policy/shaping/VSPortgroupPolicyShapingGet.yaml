@@ -1,0 +1,8 @@
+- description: "Get Policy Shaping of a Portgroup"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VSPortgroupPolicyShapingGet
+    vsPortgroups:
+    - name: testpg

@@ -1,0 +1,12 @@
+- description: "Set Policy Shaping of a Portgroup"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VSPortgroupPolicyShapingSet
+    vsPortgroupPolicyShapings:
+    - portgroupName: testpg
+      enabled: true
+      avgBandwidth: 10000
+      peakBandwidth: 20000
+      burstSize: 10000

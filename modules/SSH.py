@@ -38,9 +38,11 @@ class SSH:
             if exit_status!= 0:
                 return output
             else:
-                return "Execution successful"
-
+                if output == None or output.strip() == "":
+                    return "Execution successful"
+                return output
+            
         except Exception as e:
-            return f'Command execution failed: {e}' 
+            return f'Command execution failed: {e}'
 
     

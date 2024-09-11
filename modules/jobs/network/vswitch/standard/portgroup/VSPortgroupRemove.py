@@ -5,7 +5,7 @@ class VSPortgroupRemove:
         for vspg in vsportgroups_list:
             vsportgroup_options = [
                 f"--portgroup-name={vspg['name']}",
-                f"--vswitch-name={vspg['vsName']}"
+                f"--vswitch-name={vspg['vswitchName']}"
             ]
             vsportgroup_options = [opt for opt in vsportgroup_options if opt is not None]
             self.vsportgrouparemove_commands.append(f"esxcli {self.quiet_command} network vswitch standard portgroup remove {' '.join(vsportgroup_options)}")

@@ -16,6 +16,9 @@ from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupAdd import VSPor
 from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupRemove import VSPortgroupRemove
 from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupList import VSPortgroupList
 from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupSet import VSPortgroupSet
+from modules.jobs.network.vswitch.standard.portgroup.policy.shaping.VSPortgroupPolicyShapingGet import VSPortgroupPolicyShapingGet
+from modules.jobs.network.vswitch.standard.portgroup.policy.shaping.VSPortgroupPolicyShapingSet import VSPortgroupPolicyShapingSet
+
 
 class AutoESX:
     def __init__(self, inventoryData, jobData):
@@ -88,7 +91,9 @@ class AutoESX:
             "VSPortgroupAdd": lambda job, host_object: self._exec_commands(VSPortgroupAdd(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
             "VSPortgroupRemove": lambda job, host_object: self._exec_commands(VSPortgroupRemove(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
             "VSPortgroupList": lambda job, host_object: self._exec_commands(VSPortgroupList(quiet=job['binaryOpts']['quiet']), host_object),
-            "VSPortgroupSet": lambda job, host_object: self._exec_commands(VSPortgroupSet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object)
+            "VSPortgroupSet": lambda job, host_object: self._exec_commands(VSPortgroupSet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupPolicyShapingGet": lambda job, host_object: self._exec_commands(VSPortgroupPolicyShapingGet(job["task"]["vsPortgroups"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VSPortgroupPolicyShapingSet": lambda job, host_object: self._exec_commands(VSPortgroupPolicyShapingSet(job["task"]["vsPortgroupPolicyShapings"], quiet=job['binaryOpts']['quiet']), host_object)
         }
 
         for job in self.jobs:

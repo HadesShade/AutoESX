@@ -6,4 +6,4 @@
     type: VSPortgroupRemove
     vsPortgroups:
     - name: testpg
-      vsName: testvs
+      vswitchName: testvs

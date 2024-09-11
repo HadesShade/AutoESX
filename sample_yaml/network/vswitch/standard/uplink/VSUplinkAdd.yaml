@@ -6,4 +6,4 @@
     type: VSUplinkAdd
     vsUplinks:
     - name: testuplink
-      vsName: testvs
+      vswitchName: testvs
