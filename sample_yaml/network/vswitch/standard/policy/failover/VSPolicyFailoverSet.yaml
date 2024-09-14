@@ -1,15 +1,15 @@
-- description: "Set Policy Failover of a Portgroup"
+- description: "Set Policy Failover of a vSwitch"
   quiet: false
   groups:
   - my_group
   task:
-    type: VSPortgroupPolicyFailoverSet
-    vsPortgroupPolicyFailovers:
-    - portgroupName: testpg
+    type: VSPolicyFailoverSet
+    vsPolicyFailovers:
+    - vswitchName: testvs
       activeUplinks:
       - vmnic0
       failback: True
-      failureDetection: link
+      failureDetection: beacon
       loadBalancing: explicit
       notifySwitches: True
       standbyUplinks:

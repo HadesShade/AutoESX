@@ -1,0 +1,8 @@
+- description: "Get Policy Failover of a vSwitch"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VSPolicyFailoverGet
+    vSwitches:
+    - name: testvs

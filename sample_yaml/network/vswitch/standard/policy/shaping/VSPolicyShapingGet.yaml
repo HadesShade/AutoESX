@@ -1,0 +1,8 @@
+- description: "Get Policy Shaping of avSwitch"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VSPolicyShapingGet
+    vSwitches:
+    - name: testvs

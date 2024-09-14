@@ -1,0 +1,11 @@
+- description: "Set Policy Shaping of a vSwitch"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VSPolicySecuritySet
+    vsPolicySecurities:
+    - vswitchName: testvs
+      allowForgedTransmits: true
+      allowMacChange: true
+      allowPromiscuous: false

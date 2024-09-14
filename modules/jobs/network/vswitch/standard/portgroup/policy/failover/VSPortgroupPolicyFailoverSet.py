@@ -7,6 +7,7 @@ class VSPortgroupPolicyFailoverSet:
                 f"--portgroup-name={vspgpf['portgroupName']}",
                 f"--active-uplinks={','.join(vspgpf['activeUplinks'])}" if 'activeUplinks' in vspgpf else None,
                 f"--failback={vspgpf['failback']}" if 'failback' in vspgpf else None,
+                f"--failure-detection={vspgpf['failureDetection']}" if 'failureDetection' in vspgpf else None,
                 f"--load-balancing={vspgpf['loadBalancing']}" if 'loadBalancing' in vspgpf else None,
                 f"--notify-switches={vspgpf['notifySwitches']}" if 'notifySwitches' in vspgpf else None,
                 f"--standby-uplinks={','.join(vspgpf['standbyUplinks'])}" if'standbyUplinks' in vspgpf else None,

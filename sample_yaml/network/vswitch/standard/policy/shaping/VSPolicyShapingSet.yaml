@@ -1,0 +1,12 @@
+- description: "Set Policy Shaping of a vSwitch"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VSPolicyShapingSet
+    vsPolicyShapings:
+    - vswitchName: testvs
+      enabled: true
+      avgBandwidth: 10000
+      peakBandwidth: 20000
+      burstSize: 10000
