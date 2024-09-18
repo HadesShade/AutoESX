@@ -1,34 +1,7 @@
 import yaml
 import argparse
 import sys
-from modules.host import Host
-from modules.group import Group
-from modules.jobs.VM.VMImport import VMImport
-from modules.jobs.VM.VMExport import VMExport
-from modules.initialize import Initialize
-from modules.jobs.network.vswitch.standard.VSAdd import VSAdd
-from modules.jobs.network.vswitch.standard.VSRemove import VSRemove
-from modules.jobs.network.vswitch.standard.VSSet import VSSet
-from modules.jobs.network.vswitch.standard.VSList import VSList
-from modules.jobs.network.vswitch.standard.uplink.VSUplinkAdd import VSUplinkAdd
-from modules.jobs.network.vswitch.standard.uplink.VSUplinkRemove import VSUplinkRemove
-from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupAdd import VSPortgroupAdd
-from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupRemove import VSPortgroupRemove
-from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupList import VSPortgroupList
-from modules.jobs.network.vswitch.standard.portgroup.VSPortgroupSet import VSPortgroupSet
-from modules.jobs.network.vswitch.standard.portgroup.policy.shaping.VSPortgroupPolicyShapingGet import VSPortgroupPolicyShapingGet
-from modules.jobs.network.vswitch.standard.portgroup.policy.shaping.VSPortgroupPolicyShapingSet import VSPortgroupPolicyShapingSet
-from modules.jobs.network.vswitch.standard.portgroup.policy.security.VSPortgroupPolicySecurityGet import VSPortgroupPolicySecurityGet
-from modules.jobs.network.vswitch.standard.portgroup.policy.security.VSPortgroupPolicySecuritySet import VSPortgroupPolicySecuritySet
-from modules.jobs.network.vswitch.standard.portgroup.policy.failover.VSPortgroupPolicyFailoverGet import VSPortgroupPolicyFailoverGet
-from modules.jobs.network.vswitch.standard.portgroup.policy.failover.VSPortgroupPolicyFailoverSet import VSPortgroupPolicyFailoverSet
-from modules.jobs.network.vswitch.standard.policy.shaping.VSPolicyShapingGet import VSPolicyShapingGet
-from modules.jobs.network.vswitch.standard.policy.shaping.VSPolicyShapingSet import VSPolicyShapingSet
-from modules.jobs.network.vswitch.standard.policy.security.VSPolicySecurityGet import VSPolicySecurityGet
-from modules.jobs.network.vswitch.standard.policy.security.VSPolicySecuritySet import VSPolicySecuritySet
-from modules.jobs.network.vswitch.standard.policy.failover.VSPolicyFailoverGet import VSPolicyFailoverGet
-from modules.jobs.network.vswitch.standard.policy.failover.VSPolicyFailoverSet import VSPolicyFailoverSet
-
+from modules import *
 
 class AutoESX:
     def __init__(self, inventoryData, jobData):
