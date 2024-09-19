@@ -35,7 +35,7 @@ Make sure to provide the necessary configuration and input files as required by 
 
 ## Sample YAML Files
 
-Sample YAML files are available in the sample_yaml directory to help you get started with the configuration.
+Sample YAML files are available in the `sample_yaml` directory to help you get started with the configuration.
 
 ## Contributing
 
