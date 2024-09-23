@@ -34,7 +34,6 @@ class VMImport:
     def import_vms(self):
         for i in range(len(self.importString)):
             try:
-                print(f"> Importing {self.vmList[i]['name']} to {self.host_name}")
                 os.system(f"ovftool {self.importString[i]}")
             except:
                 print ("Error occured while importing VM!")

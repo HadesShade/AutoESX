@@ -86,7 +86,9 @@ class AutoESX:
             "VSPolicySecurityGet": lambda job, host_object: self._exec_commands(VSPolicySecurityGet(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet']), host_object),
             "VSPolicySecuritySet": lambda job, host_object: self._exec_commands(VSPolicySecuritySet(job["task"]["vsPolicySecurities"], quiet=job['binaryOpts']['quiet']), host_object),
             "VSPolicyFailoverGet": lambda job, host_object: self._exec_commands(VSPolicyFailoverGet(job["task"]["vSwitches"], quiet=job['binaryOpts']['quiet']), host_object),
-            "VSPolicyFailoverSet": lambda job, host_object: self._exec_commands(VSPolicyFailoverSet(job["task"]["vsPolicyFailovers"], quiet=job['binaryOpts']['quiet']), host_object)
+            "VSPolicyFailoverSet": lambda job, host_object: self._exec_commands(VSPolicyFailoverSet(job["task"]["vsPolicyFailovers"], quiet=job['binaryOpts']['quiet']), host_object),
+            "VMNetworkList": lambda job, host_object: self._exec_commands(VMNetworkList(quiet=job['binaryOpts']['quiet']), host_object),
+            "VMPortList": lambda job, host_object: self._exec_commands(VMPortList(job["task"]["virtualMachineWorldIds"], quiet=job['binaryOpts']['quiet']), host_object),
         }
 
         for job in self.jobs:
@@ -108,7 +110,7 @@ class AutoESX:
                     sys.exit(0)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Automate VMWare ESXi processes")
+    parser = argparse.ArgumentParser(description="Automate VMWare ESXi operations")
     parser.add_argument('--inventory-file', '-i', required=True, type=str, help='Path to the inventory file')
     parser.add_argument('--job-file', '-j', required=True, type=str, help='Path to the job file')
     args = parser.parse_args()

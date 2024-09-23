@@ -1,0 +1,8 @@
+- description: "List VM ports"
+  quiet: false
+  groups:
+  - my_group
+  task:
+    type: VMPortList
+    virtualMachineWorldIds:
+    - 68428

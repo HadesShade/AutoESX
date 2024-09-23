@@ -17,7 +17,6 @@ class VMExport:
     def export_vms(self):
         for i in range (len(self.exportString)):
             try:
-                print(f"> Exporting {self.vmList[i]['name']} from {self.host_name} to {self.vmList[i]['destination']}")
                 os.system(f"ovftool {self.exportString[i]}")
             except:
                 print ("Error occured while exporting VM!")

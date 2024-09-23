@@ -25,3 +25,5 @@ from modules.jobs.network.vswitch.standard.policy.security.VSPolicySecurityGet i
 from modules.jobs.network.vswitch.standard.policy.security.VSPolicySecuritySet import VSPolicySecuritySet
 from modules.jobs.network.vswitch.standard.policy.failover.VSPolicyFailoverGet import VSPolicyFailoverGet
 from modules.jobs.network.vswitch.standard.policy.failover.VSPolicyFailoverSet import VSPolicyFailoverSet
+from modules.jobs.VM.VMNetworkList import VMNetworkList
+from modules.jobs.VM.VMPortList import VMPortList

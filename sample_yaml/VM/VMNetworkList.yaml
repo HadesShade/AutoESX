@@ -1,0 +1,6 @@
+- description: "List VM networks"
+  quiet: false
+  hosts:
+  - my_esxi
+  task:
+    type: VMNetworkList
